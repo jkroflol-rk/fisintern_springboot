@@ -1,13 +1,18 @@
-package com.example.fisintern_spring.user_create;
+package com.example.fisintern_spring.userCreate;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 @Controller //This means that this class is a Controller
 @RequestMapping(path = "/demo") //This means URL's start with /demo (after Application path)
@@ -25,12 +30,27 @@ public class MainController {
         n.setName(name);
         n.setEmail(email);
         userRepository.save(n);
-        return "Saved";
+        return "Saved user " + n.getName() + " with email " + n.getEmail();
     }
 
     @GetMapping(path = "/all")
     public @ResponseBody Iterable<User> getAllUsers() {
         // This returns a JSON or XML with the users
-        return userRepository.findAll();
+        return userRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+    }
+
+    //    @GetMapping(path = "/findByEmails")
+//    public @ResponseBody Iterable<User> getAllByEmails() {
+//        Set<String> emails = new HashSet<>();
+//        //filling the set with emails
+//        emails.add("test@gmail.com");
+//        emails.add("fake@gmail.com");
+//
+//        return userRepository.findUserByEmails(emails);
+//    }
+    @GetMapping(path = "/findByEmails")
+    public @ResponseBody Iterable<User> getAllByEmails(@RequestParam List<String> emails) {
+        Set<String> emailSet = new HashSet<>(emails);
+        return userRepository.findUserByEmails(emailSet);
     }
 }

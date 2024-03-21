@@ -1,4 +1,4 @@
-package com.example.fisintern_spring.user_create;
+package com.example.fisintern_spring.userCreate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
