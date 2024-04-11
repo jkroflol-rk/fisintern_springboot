@@ -11,5 +11,16 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
     @Query("SELECT s FROM Student s WHERE s.first_name LIKE %?1%")
     List<Student> findStudentByName(String first_name);
 
+    @Query(value="SELECT s.student_id, s.first_name, s.last_name, c.class_id, c.score FROM " +
+            "student s INNER JOIN student_class c ON s.student_id = c.student_id",
+            nativeQuery = true)
+    List<Object[]> findStudentClassData();
 
+    @Query(value="SELECT AVG(score) FROM student_class c WHERE c.student_id = ?1", nativeQuery = true)
+    Double findAverageScore(Integer student_id);
+
+    //write query to update the score in student table
+    @Modifying
+    @Query("UPDATE Student s SET s.score = ?1 WHERE s.student_id = ?2")
+    String updateScore(Integer score, Integer student_id);
 }

@@ -28,4 +28,15 @@ public class StudentController {
         // This returns a JSON or XML with the users
         return studentRepository.findAll();
     }
+
+    @GetMapping(path = "/findclass")
+    public @ResponseBody Iterable<Object[]> findClass() {
+        return studentRepository.findStudentClassData();
+    }
+
+    @PostMapping(path = "/updateaverage")
+    public @ResponseBody String updateAverage(@RequestParam Integer student_id) {
+        Double average = studentRepository.findAverageScore(student_id);
+        return studentRepository.updateScore(average.intValue(), student_id);
+    }
 }
