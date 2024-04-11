@@ -1,6 +1,7 @@
 package com.example.fisintern_spring.student;
 
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -21,6 +22,8 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 
     //write query to update the score in student table
     @Modifying
-    @Query("UPDATE Student s SET s.score = ?1 WHERE s.student_id = ?2")
-    String updateScore(Integer score, Integer student_id);
+    @Query("UPDATE Student s SET s.score = :score WHERE s.student_id = :student_id")
+    void updateScore(@Param("score") Integer score, @Param("student_id") Integer student_id);
 }
+
+

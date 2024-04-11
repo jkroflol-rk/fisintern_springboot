@@ -3,11 +3,8 @@ package com.example.fisintern_spring.student;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,9 +31,16 @@ public class StudentController {
         return studentRepository.findStudentClassData();
     }
 
-    @PostMapping(path = "/updateaverage")
+    @GetMapping(path = "/findaverage")
+    public @ResponseBody Double findAverage(@RequestParam Integer student_id) {
+        return studentRepository.findAverageScore(student_id);
+    }
+
+    @Transactional
+    @PatchMapping(path = "/updateaverage")
     public @ResponseBody String updateAverage(@RequestParam Integer student_id) {
-        Double average = studentRepository.findAverageScore(student_id);
-        return studentRepository.updateScore(average.intValue(), student_id);
+        Double score = studentRepository.findAverageScore(student_id);
+        studentRepository.updateScore(score.intValue(), student_id);
+        return "Updated";
     }
 }
