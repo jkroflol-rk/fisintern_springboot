@@ -1,13 +1,21 @@
-package com.example.fisintern_spring.customers;
+package com.example.fisintern_spring.models;
 
 import jakarta.persistence.*;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "customers")
-public class Customers {
-    public enum Gender { M, F }
+public class Customer {
+    @OneToMany(mappedBy = "customer")
+    private Set<Bill> bills = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "customer")
+    private Set<Reservation> reservations = new LinkedHashSet<>();
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id")
     private Integer customer_id;
 
@@ -17,6 +25,7 @@ public class Customers {
     @Column(name = "phone")
     private String phone;
 
+    public enum Gender { M, F }
     @Enumerated(EnumType.STRING)
     @Column(name = "sex")
     private Gender gender;
@@ -38,6 +47,22 @@ public class Customers {
 
     @Column(name = "membership_id")
     private Integer membership_id;
+
+    public Set<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(Set<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+    public Set<Bill> getBills() {
+        return bills;
+    }
+
+    public void setBills(Set<Bill> bills) {
+        this.bills = bills;
+    }
 
     public Integer getCustomer_id() {
         return customer_id;
