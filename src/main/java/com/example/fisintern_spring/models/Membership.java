@@ -1,5 +1,7 @@
 package com.example.fisintern_spring.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +13,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "memberships")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Membership {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +29,8 @@ public class Membership {
     @Column(name = "total_price_required")
     private Integer totalPriceRequired;
 
-    @OneToMany(mappedBy = "membership")
+    @JsonBackReference
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "membership")
     private Set<Customer> customers = new LinkedHashSet<>();
 
 }

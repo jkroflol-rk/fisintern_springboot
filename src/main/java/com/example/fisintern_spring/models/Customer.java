@@ -1,54 +1,53 @@
 package com.example.fisintern_spring.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
-@Entity
 @Getter
 @Setter
+@Entity
 @Table(name = "customers")
 public class Customer {
-    @OneToMany(mappedBy = "customer")
-    private Set<Bill> bills = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "customer")
-    private Set<Reservation> reservations = new LinkedHashSet<>();
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "customer_id")
-    private Integer customer_id;
+    @Column(name = "customer_id", nullable = false)
+    private Integer id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, length = 50)
     private String name;
 
-    @Column(name = "phone")
+    @Column(name = "phone", length = 10)
     private String phone;
 
-    public enum Gender { M, F }
+    public enum Gender{ M, F }
+
     @Enumerated(EnumType.STRING)
     @Column(name = "sex")
-    private Gender gender;
+    private Gender sex;
 
     @Column(name = "dob")
-    private String dob;
+    private LocalDate dob;
 
     @Column(name = "address")
     private String address;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, length = 50)
     private String email;
 
-    @Column(name = "debt")
-    private Double debt;
+    @Column(name = "debt", precision = 13, scale = 2)
+    private BigDecimal debt;
 
-    @Column(name = "total")
-    private Double total;
+    @Column(name = "total", precision = 13, scale = 2)
+    private BigDecimal total;
 
-    @Column(name = "membership_id")
-    private Integer membership_id;
+    @JsonManagedReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "membership_id")
+    private Membership membership;
+
 }
