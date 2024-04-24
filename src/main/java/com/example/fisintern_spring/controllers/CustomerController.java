@@ -39,19 +39,19 @@ public class CustomerController {
         return customerRepository.findCustomerByName(name);
     }
 
-    @PostMapping(path = "/addcustomer") // Map ONLY POST Requests
+    @PostMapping(path = "/add") // Map ONLY POST Requests
     public @ResponseBody Customer addNewCustomer(@RequestBody Customer customer) {
         return customerRepository.save(customer);
     }
 
-    @DeleteMapping(path = "/deletecustomer/{id}")
+    @DeleteMapping(path = "/delete/{id}")
     public @ResponseBody String deleteCustomer(@PathVariable int id) {
         customerRepository.deleteById(id);
         return "Deleted";
     }
 
     @Transactional
-    @PatchMapping(path = "/updatecustomer/{id}")
+    @PatchMapping(path = "/updatename/{id}")
     public @ResponseBody String updateCustomer(@PathVariable int id, @RequestParam String name) {
         return customerService.updateCustomer(id, name);
     }
