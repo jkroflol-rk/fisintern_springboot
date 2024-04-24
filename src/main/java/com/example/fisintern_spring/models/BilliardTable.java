@@ -18,14 +18,17 @@ public class BilliardTable {
     @Column(name = "btable_name", length = 50)
     private String btableName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "zone_id")
-    private Zone zone;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "zone_id")
+    @Column(name = "zone_id")
+    private Integer zone;
 
+    public enum Status { vacant, occupied }
+
+    @Enumerated(EnumType.STRING)
     @ColumnDefault("vacant")
-    @Lob
     @Column(name = "status")
-    private String status;
+    private Status status;
 
     @Lob
     @Column(name = "notes")
