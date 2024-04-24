@@ -45,9 +45,26 @@ public class Customer {
     @Column(name = "total", precision = 13, scale = 2)
     private BigDecimal total;
 
-    @JsonManagedReference
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "membership_id")
-    private Membership membership;
+//    @JsonManagedReference
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "membership_id")
+    @Column(name = "membership_id")
+    private Integer membership;
 
+    @Column(name = "company")
+    private String company;
+
+    Customer(){}
+
+    //write a constructor that takes in all the fields except id
+    public Customer(String name, String phone, Gender sex, String email, BigDecimal debt, BigDecimal total, Integer membership, String company) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.debt = debt;
+        this.total = total;
+        this.membership = membership;
+        this.company = company;
+        this.sex = sex;
+    }
 }

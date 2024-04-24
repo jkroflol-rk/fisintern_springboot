@@ -4,9 +4,12 @@ package com.example.fisintern_spring.controllers;
 import com.example.fisintern_spring.models.Customer;
 import com.example.fisintern_spring.repositories.CustomerRepository;
 import com.example.fisintern_spring.services.CustomerService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/customer")
@@ -27,11 +30,34 @@ public class CustomerController {
     @GetMapping(path = "/findbyid/{id}")
     public @ResponseBody Customer findCustomerById(@PathVariable int id) {
         // This returns a JSON or XML with the users
-        return customerRepository.findById(id).get();
+        return customerService.findCustomerById(id);
     }
 
+    @GetMapping(path = "/findbyname")
+    public @ResponseBody List<Customer> findCustomerByName(@RequestParam String name) {
+        // This returns a JSON or XML with the users
+        return customerRepository.findCustomerByName(name);
+    }
+
+//    @PostMapping(path = "/addcustomer") // Map ONLY POST Requests
+//    public @ResponseBody String addNewCustomer(@RequestParam String name, @RequestParam String email) {
+//        return customerService.addNewCustomer(name, email);
+//    }
+
     @PostMapping(path = "/addcustomer") // Map ONLY POST Requests
-    public @ResponseBody String addNewCustomer(@RequestParam String name, @RequestParam String email) {
-        return customerService.addNewCustomer(name, email);
+    public @ResponseBody Customer addNewCustomer(@RequestBody Customer customer) {
+        return customerRepository.save(customer);
+    }
+
+    @DeleteMapping(path = "/deletecustomer/{id}")
+    public @ResponseBody String deleteCustomer(@PathVariable int id) {
+        customerRepository.deleteById(id);
+        return "Deleted";
+    }
+
+    @Transactional
+    @PatchMapping(path = "/updatecustomer/{id}")
+    public @ResponseBody String updateCustomer(@PathVariable int id, @RequestParam String name) {
+        return customerService.updateCustomer(id, name);
     }
 }
