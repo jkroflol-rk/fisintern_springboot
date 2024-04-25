@@ -2,6 +2,7 @@ package com.example.fisintern_spring.controllers;
 
 
 import com.example.fisintern_spring.models.BilliardTable;
+import com.example.fisintern_spring.models.Customer;
 import com.example.fisintern_spring.repositories.BilliardTableRepository;
 import com.example.fisintern_spring.services.BilliardTableService;
 import jakarta.transaction.Transactional;
@@ -28,8 +29,19 @@ public class BilliardTableController {
         return tableRepository.findAll();
     }
 
-    @GetMapping(path = "/status")
-    public @ResponseBody List<BilliardTable> getTableByStatus(@RequestParam String status) {
+    @GetMapping(path = "/findbyname")
+    public @ResponseBody List<BilliardTable> getAllUsers(@RequestParam String keyword) {
+        // This returns a JSON or XML with the users
+        return tableRepository.findTable(keyword);
+    }
+
+    @GetMapping(path = "/status/{status}")
+    public @ResponseBody List<BilliardTable> getTableByStatus(@PathVariable BilliardTable.Status status) {
         return tableRepository.findTableByStatus(status);
+    }
+
+    @PostMapping(path = "/add")
+    public @ResponseBody BilliardTable addTable(@RequestBody BilliardTable table) {
+        return tableRepository.save(table);
     }
 }

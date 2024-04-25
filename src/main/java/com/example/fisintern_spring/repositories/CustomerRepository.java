@@ -1,5 +1,6 @@
 package com.example.fisintern_spring.repositories;
 
+import com.example.fisintern_spring.models.BilliardTable;
 import com.example.fisintern_spring.models.Customer;
 import org.springframework.data.jpa.repository.*;
 
@@ -21,6 +22,9 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
     @Query("SELECT s FROM Customer s WHERE s.dob BETWEEN ?1 and ?2")
     List<Customer> findBirthdayCustomer(LocalDate date1, LocalDate date2);
+
+    @Query("SELECT s FROM Customer s WHERE s.sex = ?1")
+    List<Customer> findCustomerBySex(Customer.Gender sex);
 }
 
 

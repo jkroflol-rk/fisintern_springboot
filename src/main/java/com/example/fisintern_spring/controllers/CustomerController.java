@@ -57,6 +57,11 @@ public class CustomerController {
         return customerRepository.findBirthdayCustomer(date1, date2);
     }
 
+    @GetMapping(path = "/findbysex/{sex}")
+    public @ResponseBody List<Customer> findBirthdayCustomer(@PathVariable Customer.Gender sex) {
+        return customerRepository.findCustomerBySex(sex);
+    }
+
     @PostMapping(path = "/add") // Map ONLY POST Requests
     public @ResponseBody Customer addNewCustomer(@RequestBody Customer customer) {
         return customerRepository.save(customer);
