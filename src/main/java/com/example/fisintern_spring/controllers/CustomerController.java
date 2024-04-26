@@ -1,6 +1,5 @@
 package com.example.fisintern_spring.controllers;
 
-
 import com.example.fisintern_spring.models.Customer;
 import com.example.fisintern_spring.repositories.CustomerRepository;
 import com.example.fisintern_spring.services.CustomerService;
@@ -73,9 +72,8 @@ public class CustomerController {
         return "Deleted";
     }
 
-    @Transactional
-    @PatchMapping(path = "/updatename/{id}")
-    public @ResponseBody String updateCustomer(@PathVariable int id, @RequestParam String name) {
-        return customerService.updateCustomer(id, name);
+    @PutMapping(path = "/updatecustomer/{id}")
+    public @ResponseBody String updateCustomer(@PathVariable int id, @RequestBody Customer customer) {
+        return customerService.updateCustomer(id, customer);
     }
 }
