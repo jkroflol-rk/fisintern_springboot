@@ -7,6 +7,7 @@ import org.hibernate.annotations.ColumnDefault;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -18,31 +19,36 @@ public class Reservation {
     @Column(name = "reserve_id", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "billard_table_id", nullable = false)
-    private BilliardTable billardTable;
+//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+//    @JoinColumn(name = "billard_table_id", nullable = false)
+    @Column(name = "billard_table_id")
+    private Integer billardTableId;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
+//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+//    @JoinColumn(name = "customer_id", nullable = false)
+    @Column(name = "customer_id")
+    private Integer customerId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "employee_id")
+    @Column(name = "employee_id")
+    private Integer employeeId;
 
     @Column(name = "reserve_time")
-    private Instant reserveTime;
+    @ColumnDefault("CURRENT_TIMESTAMP")
+    private LocalDateTime reserveTime;
 
-    @ColumnDefault("unpaid")
-    @Lob
+    public enum Status { unpaid, paid }
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private String status;
+    private Status status;
 
     @Column(name = "start_time")
-    private Instant startTime;
+    private LocalDateTime startTime;
 
     @Column(name = "end_time")
-    private Instant endTime;
+    private LocalDateTime endTime;
 
     @Column(name = "total_time", precision = 9, scale = 2)
     private BigDecimal totalTime;
@@ -53,5 +59,4 @@ public class Reservation {
     @Lob
     @Column(name = "notes")
     private String notes;
-
 }

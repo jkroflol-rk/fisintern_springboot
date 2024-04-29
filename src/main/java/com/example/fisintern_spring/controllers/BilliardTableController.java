@@ -1,6 +1,5 @@
 package com.example.fisintern_spring.controllers;
 
-
 import com.example.fisintern_spring.models.BilliardTable;
 import com.example.fisintern_spring.models.Customer;
 import com.example.fisintern_spring.repositories.BilliardTableRepository;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/tables")
@@ -29,6 +29,12 @@ public class BilliardTableController {
         return tableRepository.findAll();
     }
 
+    @GetMapping(path = "/findbyid/{id}")
+    public @ResponseBody BilliardTable findTableById(@PathVariable Integer id) {
+        // This returns a JSON or XML with the users
+        return tableService.findTableById(id);
+    }
+
     @GetMapping(path = "/findbyname")
     public @ResponseBody List<BilliardTable> getAllUsers(@RequestParam String keyword) {
         // This returns a JSON or XML with the users
@@ -40,8 +46,24 @@ public class BilliardTableController {
         return tableRepository.findTableByStatus(status);
     }
 
+    @GetMapping(path = "/findbyzone/{zone}")
+    public @ResponseBody List<BilliardTable> getTableByZone(@PathVariable Integer zone) {
+        return tableRepository.findTableByZone(zone);
+    }
+
     @PostMapping(path = "/add")
     public @ResponseBody BilliardTable addTable(@RequestBody BilliardTable table) {
         return tableRepository.save(table);
+    }
+
+    @DeleteMapping(path = "/delete/{id}")
+    public @ResponseBody String deleteTable(@PathVariable Integer id) {
+        tableRepository.deleteById(id);
+        return "Deleted table with id: " + id;
+    }
+
+    @PutMapping(path = "/update/{id}")
+    public @ResponseBody String updateTable(@PathVariable Integer id, @RequestBody BilliardTable table) {
+        return tableService.updateTable(id, table);
     }
 }

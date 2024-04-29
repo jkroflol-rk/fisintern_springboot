@@ -17,6 +17,9 @@ public interface BilliardTableRepository extends JpaRepository<BilliardTable, In
 
     @Query("SELECT s FROM BilliardTable s WHERE s.status = ?1")
     List<BilliardTable> findTableByStatus(BilliardTable.Status status);
+
+    @Query("SELECT s FROM BilliardTable s WHERE s.zone = ?1")
+    List<BilliardTable> findTableByZone(Integer zone);
 }
 
 
