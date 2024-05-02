@@ -21,12 +21,12 @@ public class Reservation {
 
 //    @ManyToOne(fetch = FetchType.LAZY, optional = false)
 //    @JoinColumn(name = "billard_table_id", nullable = false)
-    @Column(name = "billard_table_id")
-    private Integer billardTableId;
+    @Column(name = "billiard_table_id", nullable = false)
+    private Integer btableId;
 
 //    @ManyToOne(fetch = FetchType.LAZY, optional = false)
 //    @JoinColumn(name = "customer_id", nullable = false)
-    @Column(name = "customer_id")
+    @Column(name = "customer_id", nullable = false)
     private Integer customerId;
 
 //    @ManyToOne(fetch = FetchType.LAZY)
@@ -34,14 +34,13 @@ public class Reservation {
     @Column(name = "employee_id")
     private Integer employeeId;
 
-    @Column(name = "reserve_time")
-    @ColumnDefault("CURRENT_TIMESTAMP")
+    @Column(name = "reserve_time", nullable = false)
     private LocalDateTime reserveTime;
 
     public enum Status { unpaid, paid }
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status")
+    @Column(name = "status", nullable = false)
     private Status status;
 
     @Column(name = "start_time")

@@ -4,6 +4,7 @@ import com.example.fisintern_spring.models.BilliardTable;
 import com.example.fisintern_spring.models.Customer;
 import org.springframework.data.jpa.repository.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -25,6 +26,18 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
     @Query("SELECT s FROM Customer s WHERE s.sex = ?1")
     List<Customer> findCustomerBySex(Customer.Gender sex);
+
+    @Query("SELECT s.debt FROM Customer s WHERE s.id = ?1")
+    BigDecimal findDebtById(String name);
+
+    @Query("SELECT s.total FROM Customer s WHERE s.id = ?1")
+    BigDecimal findTotalById(String name);
+
+    @Query("update Customer s set s.debt = ?1 where s.id = ?2")
+    void updateDebt(BigDecimal debt, Integer id);
+
+    @Query("update Customer s set s.total = ?1 where s.id = ?2")
+    void updateTotal(BigDecimal total, Integer id);
 }
 
 
