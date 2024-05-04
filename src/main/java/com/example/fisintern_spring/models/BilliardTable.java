@@ -26,9 +26,8 @@ public class BilliardTable {
     public enum Status { vacant, occupied }
 
     @Enumerated(EnumType.STRING)
-    @ColumnDefault("vacant")
     @Column(name = "status")
-    private Status status;
+    private Status status = Status.vacant;
 
     @Lob
     @Column(name = "notes")

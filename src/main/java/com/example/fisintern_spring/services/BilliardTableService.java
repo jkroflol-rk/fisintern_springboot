@@ -18,6 +18,12 @@ public class BilliardTableService {
         return tableRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Table not found"));
     }
 
+    public String deleteTable(Integer id) {
+        BilliardTable table = tableRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Table not found"));
+        tableRepository.deleteById(id);
+        return "Deleted table with id " + id + ".";
+    }
+
     public String updateTable(Integer id, BilliardTable table){
         if (!tableRepository.existsById(id)) {
             tableRepository.save(table);

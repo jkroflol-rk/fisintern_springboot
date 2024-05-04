@@ -58,8 +58,7 @@ public class BilliardTableController {
 
     @DeleteMapping(path = "/delete/{id}")
     public @ResponseBody String deleteTable(@PathVariable Integer id) {
-        tableRepository.deleteById(id);
-        return "Deleted table with id: " + id;
+        return tableService.deleteTable(id);
     }
 
     @PutMapping(path = "/update/{id}")

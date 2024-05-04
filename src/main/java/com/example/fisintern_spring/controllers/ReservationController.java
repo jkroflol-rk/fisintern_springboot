@@ -41,9 +41,14 @@ public class ReservationController {
     }
 
     @PutMapping(path = "/updatestatus/{id}")
-    public @ResponseBody String updateReservationStatus(@PathVariable Integer id, @RequestBody Reservation.Status status) {
+    public @ResponseBody String updateReservationStatus(@PathVariable Integer id, @RequestParam Reservation.Status status) {
         reservationRepository.updateStatus(status, id);
         return "Updated reservation status with id " + id + " to " + status + ".";
     }
 
+    @PutMapping(path = "/updateendtime/{id}")
+    public @ResponseBody String updateReservationEndTime(@PathVariable Integer id, @RequestParam String endTime) {
+        LocalDateTime endT = LocalDateTime.parse(endTime);
+        return reservationService.updateEndTime(id, endT);
+    }
 }

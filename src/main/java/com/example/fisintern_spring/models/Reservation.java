@@ -34,14 +34,14 @@ public class Reservation {
     @Column(name = "employee_id")
     private Integer employeeId;
 
-    @Column(name = "reserve_time", nullable = false)
-    private LocalDateTime reserveTime;
+    @Column(name = "reserve_time")
+    private LocalDateTime reserveTime = LocalDateTime.now();
 
     public enum Status { unpaid, paid }
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
-    private Status status;
+    @Column(name = "status")
+    private Status status = Status.unpaid;
 
     @Column(name = "start_time")
     private LocalDateTime startTime;

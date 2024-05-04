@@ -33,9 +33,11 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     @Query("SELECT s.total FROM Customer s WHERE s.id = ?1")
     BigDecimal findTotalById(String name);
 
+    @Modifying
     @Query("update Customer s set s.debt = ?1 where s.id = ?2")
     void updateDebt(BigDecimal debt, Integer id);
 
+    @Modifying
     @Query("update Customer s set s.total = ?1 where s.id = ?2")
     void updateTotal(BigDecimal total, Integer id);
 }

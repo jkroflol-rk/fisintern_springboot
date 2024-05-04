@@ -17,6 +17,12 @@ public class CustomerService {
         return customerRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Customer not found"));
     }
 
+    public String deleteCustomer(Integer id) {
+        Customer customer = customerRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Customer not found"));
+        customerRepository.deleteById(id);
+        return "Deleted customer with id " + id + ".";
+    }
+
     public String updateCustomer(Integer id, Customer customer){
         if (!customerRepository.existsById(id)) {
             customerRepository.save(customer);

@@ -68,8 +68,7 @@ public class CustomerController {
 
     @DeleteMapping(path = "/delete/{id}")
     public @ResponseBody String deleteCustomer(@PathVariable int id) {
-        customerRepository.deleteById(id);
-        return "Deleted customer with id " + id;
+        return customerService.deleteCustomer(id);
     }
 
     @PutMapping(path = "/updatecustomer/{id}")
