@@ -1,12 +1,15 @@
 package com.example.fisintern_spring.controllers;
 
 import com.example.fisintern_spring.models.Reservation;
+import com.example.fisintern_spring.models.Zone;
 import com.example.fisintern_spring.repositories.ReservationRepository;
+import com.example.fisintern_spring.repositories.ZoneRepository;
 import com.example.fisintern_spring.services.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Controller
@@ -17,6 +20,8 @@ public class ReservationController {
 
     @Autowired
     private ReservationService reservationService;
+    @Autowired
+    private ZoneRepository zoneRepository;
 
     @GetMapping(path = "/all")
     public @ResponseBody Iterable<Reservation> getAllUsers() {
