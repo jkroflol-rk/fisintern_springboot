@@ -27,4 +27,9 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     @Modifying
     @Query("UPDATE Reservation r SET r.totalTime = TIMESTAMPDIFF(SECOND, r.startTime, r.endTime) / 3600.0 WHERE r.id = ?1")
     void updateTotalTime(Integer id);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE Reservation r SET r.totalPrice = r.totalTime * ?1 WHERE r.id = ?2")
+    void updateTotalCost(BigDecimal rate, Integer id);
 }

@@ -1,11 +1,9 @@
 package com.example.fisintern_spring.repositories;
 
 import com.example.fisintern_spring.models.BilliardTable;
-import com.example.fisintern_spring.models.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import java.time.LocalDate;
 import java.util.List;
 
 // This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
@@ -20,6 +18,9 @@ public interface BilliardTableRepository extends JpaRepository<BilliardTable, In
 
     @Query("SELECT s FROM BilliardTable s WHERE s.zone = ?1")
     List<BilliardTable> findTableByZone(Integer zone);
+
+    @Query("SELECT s.zone FROM BilliardTable s WHERE s.id = ?1")
+    Integer findZoneIdByTableId(Integer tableId);
 }
 
 
