@@ -3,7 +3,6 @@ package com.example.fisintern_spring.controllers;
 import com.example.fisintern_spring.models.Customer;
 import com.example.fisintern_spring.repositories.CustomerRepository;
 import com.example.fisintern_spring.services.CustomerService;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +29,7 @@ public class CustomerController {
     @GetMapping(path = "/findbyid/{id}")
     public @ResponseBody Customer findCustomerById(@PathVariable int id) {
         // This returns a JSON or XML with the users
-        return customerService.findCustomerById(id);
+        return customerService.findById(id, "Customer");
     }
 
     @GetMapping(path = "/find")
@@ -68,11 +67,11 @@ public class CustomerController {
 
     @DeleteMapping(path = "/delete/{id}")
     public @ResponseBody String deleteCustomer(@PathVariable int id) {
-        return customerService.deleteCustomer(id);
+        return customerService.deleteById(id, "Customer");
     }
 
     @PutMapping(path = "/updatecustomer/{id}")
     public @ResponseBody String updateCustomer(@PathVariable int id, @RequestBody Customer customer) {
-        return customerService.updateCustomer(id, customer);
+        return customerService.update(id, customer);
     }
 }

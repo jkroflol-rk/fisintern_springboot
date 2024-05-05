@@ -1,17 +1,13 @@
 package com.example.fisintern_spring.controllers;
 
 import com.example.fisintern_spring.models.BilliardTable;
-import com.example.fisintern_spring.models.Customer;
 import com.example.fisintern_spring.repositories.BilliardTableRepository;
 import com.example.fisintern_spring.services.BilliardTableService;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/tables")
@@ -32,7 +28,7 @@ public class BilliardTableController {
     @GetMapping(path = "/findbyid/{id}")
     public @ResponseBody BilliardTable findTableById(@PathVariable Integer id) {
         // This returns a JSON or XML with the users
-        return tableService.findTableById(id);
+        return tableService.findById(id, "Table");
     }
 
     @GetMapping(path = "/findbyname")
@@ -58,11 +54,11 @@ public class BilliardTableController {
 
     @DeleteMapping(path = "/delete/{id}")
     public @ResponseBody String deleteTable(@PathVariable Integer id) {
-        return tableService.deleteTable(id);
+        return tableService.deleteById(id, "Table");
     }
 
     @PutMapping(path = "/update/{id}")
     public @ResponseBody String updateTable(@PathVariable Integer id, @RequestBody BilliardTable table) {
-        return tableService.updateTable(id, table);
+        return tableService.update(id, table);
     }
 }
