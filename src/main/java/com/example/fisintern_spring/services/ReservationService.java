@@ -1,6 +1,6 @@
 package com.example.fisintern_spring.services;
 
-import com.example.fisintern_spring.models.Reservation;
+import com.example.fisintern_spring.entities.Reservation;
 import com.example.fisintern_spring.repositories.BilliardTableRepository;
 import com.example.fisintern_spring.repositories.ReservationRepository;
 import com.example.fisintern_spring.repositories.ZoneRepository;

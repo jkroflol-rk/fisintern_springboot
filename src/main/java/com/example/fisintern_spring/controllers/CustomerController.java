@@ -1,6 +1,6 @@
 package com.example.fisintern_spring.controllers;
 
-import com.example.fisintern_spring.models.Customer;
+import com.example.fisintern_spring.entities.Customer;
 import com.example.fisintern_spring.repositories.CustomerRepository;
 import com.example.fisintern_spring.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;

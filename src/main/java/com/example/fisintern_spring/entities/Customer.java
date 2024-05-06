@@ -1,6 +1,5 @@
-package com.example.fisintern_spring.models;
+package com.example.fisintern_spring.entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -53,18 +52,4 @@ public class Customer {
 
     @Column(name = "company")
     private String company;
-
-    Customer(){}
-
-    //write a constructor that takes in all the fields except id
-    public Customer(String name, String phone, Gender sex, String email, BigDecimal debt, BigDecimal total, Integer membership, String company) {
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.debt = debt;
-        this.total = total;
-        this.membership = membership;
-        this.company = company;
-        this.sex = sex;
-    }
 }

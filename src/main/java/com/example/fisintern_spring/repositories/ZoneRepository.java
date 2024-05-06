@@ -1,6 +1,6 @@
 package com.example.fisintern_spring.repositories;
 
-import com.example.fisintern_spring.models.Zone;
+import com.example.fisintern_spring.entities.Zone;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

@@ -1,6 +1,6 @@
 package com.example.fisintern_spring.repositories;
 
-import com.example.fisintern_spring.models.Reservation;
+import com.example.fisintern_spring.entities.Reservation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

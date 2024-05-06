@@ -1,4 +1,4 @@
-package com.example.fisintern_spring.models;
+package com.example.fisintern_spring.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;

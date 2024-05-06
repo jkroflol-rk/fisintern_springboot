@@ -1,4 +1,4 @@
-package com.example.fisintern_spring.models;
+package com.example.fisintern_spring.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

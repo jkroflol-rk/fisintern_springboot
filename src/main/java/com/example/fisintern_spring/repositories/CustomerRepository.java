@@ -1,7 +1,6 @@
 package com.example.fisintern_spring.repositories;
 
-import com.example.fisintern_spring.models.BilliardTable;
-import com.example.fisintern_spring.models.Customer;
+import com.example.fisintern_spring.entities.Customer;
 import org.springframework.data.jpa.repository.*;
 
 import java.math.BigDecimal;

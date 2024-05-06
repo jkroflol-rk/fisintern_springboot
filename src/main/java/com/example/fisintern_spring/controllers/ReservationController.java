@@ -1,6 +1,6 @@
 package com.example.fisintern_spring.controllers;
 
-import com.example.fisintern_spring.models.Reservation;
+import com.example.fisintern_spring.entities.Reservation;
 import com.example.fisintern_spring.repositories.ReservationRepository;
 import com.example.fisintern_spring.services.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;

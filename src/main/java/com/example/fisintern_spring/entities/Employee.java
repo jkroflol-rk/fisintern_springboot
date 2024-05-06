@@ -1,4 +1,4 @@
-package com.example.fisintern_spring.models;
+package com.example.fisintern_spring.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -35,9 +35,6 @@ public class Employee {
     @Column(name = "address", nullable = false, length = 50)
     private String address;
 
-    @Column(name = "email", nullable = false, length = 50)
-    private String email;
-
     @Column(name = "enrolment_date", nullable = false)
     private LocalDate enrolmentDate;
 
@@ -45,13 +42,11 @@ public class Employee {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @Column(name = "username", nullable = false, length = 50)
-    private String username;
-
-    @Column(name = "password", nullable = false, length = 50)
-    private String password;
-
     @Column(name = "years_worked")
     private Integer yearsWorked;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
 }

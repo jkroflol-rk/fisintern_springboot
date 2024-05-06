@@ -1,6 +1,6 @@
 package com.example.fisintern_spring.controllers;
 
-import com.example.fisintern_spring.models.BilliardTable;
+import com.example.fisintern_spring.entities.BilliardTable;
 import com.example.fisintern_spring.repositories.BilliardTableRepository;
 import com.example.fisintern_spring.services.BilliardTableService;
 import org.springframework.beans.factory.annotation.Autowired;

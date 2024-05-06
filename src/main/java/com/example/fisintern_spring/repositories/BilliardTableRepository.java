@@ -1,6 +1,6 @@
 package com.example.fisintern_spring.repositories;
 
-import com.example.fisintern_spring.models.BilliardTable;
+import com.example.fisintern_spring.entities.BilliardTable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
