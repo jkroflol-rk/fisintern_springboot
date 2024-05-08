@@ -38,7 +38,7 @@ public class Supplier {
     @Column(name = "tax_num", length = 50)
     private String taxNum;
 
+    @Lob
     @Column(name = "notes")
     private String notes;
-
 }

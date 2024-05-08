@@ -7,8 +7,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-// This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
-// CRUD refers Create, Read, Update, Delete
 
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     @Query("SELECT s FROM Customer s WHERE s.name LIKE %?1% OR s.phone LIKE %?1% OR s.email LIKE %?1%")

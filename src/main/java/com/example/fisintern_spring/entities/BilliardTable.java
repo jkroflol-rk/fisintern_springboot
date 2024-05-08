@@ -25,6 +25,7 @@ public class BilliardTable {
 
     public enum Status { vacant, occupied }
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private Status status = Status.vacant;

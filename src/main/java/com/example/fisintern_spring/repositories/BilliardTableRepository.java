@@ -6,9 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-// This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
-// CRUD refers Create, Read, Update, Delete
-
 public interface BilliardTableRepository extends JpaRepository<BilliardTable, Integer> {
     @Query("SELECT s FROM BilliardTable s WHERE s.btableName LIKE %?1%")
     List<BilliardTable> findTable(String keyword);
