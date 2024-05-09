@@ -33,11 +33,13 @@ public class Reservation {
     @Column(name = "employee_id")
     private Integer employeeId;
 
+    @Builder.Default
     @Column(name = "reserve_time")
     private LocalDateTime reserveTime = LocalDateTime.now();
 
     public enum Status { unpaid, paid }
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private Status status = Status.unpaid;

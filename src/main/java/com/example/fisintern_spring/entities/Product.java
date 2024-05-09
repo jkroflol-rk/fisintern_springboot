@@ -17,16 +17,18 @@ public class Product {
     @Column(name = "product_id", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "supplier_id")
-    private Supplier supplier;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "supplier_id")
+    @Column(name = "supplier_id")
+    private Integer supplier;
 
     @Column(name = "product_name", length = 50)
     private String productName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "type_id")
-    private ProductType type;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "type_id")
+    @Column(name = "type_id")
+    private Integer type;
 
     @Lob
     @Column(name = "description")

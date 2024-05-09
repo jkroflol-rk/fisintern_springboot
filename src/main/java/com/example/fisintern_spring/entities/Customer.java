@@ -24,8 +24,6 @@ public class Customer {
     @Column(name = "phone", length = 10)
     private String phone;
 
-    public enum Gender{ M, F }
-
     @Enumerated(EnumType.STRING)
     @Column(name = "sex")
     private Gender sex;

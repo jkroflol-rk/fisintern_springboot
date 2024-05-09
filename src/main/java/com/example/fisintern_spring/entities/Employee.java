@@ -26,9 +26,9 @@ public class Employee {
     @Column(name = "dob", nullable = false)
     private LocalDate dob;
 
-    @Lob
+    @Enumerated(EnumType.STRING)
     @Column(name = "sex", nullable = false)
-    private String sex;
+    private Gender sex;
 
     @Column(name = "citizen_id", nullable = false, length = 12)
     private String citizenId;
@@ -39,15 +39,17 @@ public class Employee {
     @Column(name = "enrolment_date", nullable = false)
     private LocalDate enrolmentDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id")
-    private Role role;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "role_id")
+    @Column(name = "role_id")
+    private Integer role;
 
     @Column(name = "years_worked")
     private Integer yearsWorked;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "user_id")
+    @Column(name = "user_id")
+    private Integer user;
 
 }

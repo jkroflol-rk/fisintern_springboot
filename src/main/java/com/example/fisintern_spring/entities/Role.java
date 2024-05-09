@@ -20,9 +20,10 @@ public class Role {
     @Column(name = "role_name", nullable = false, length = 50)
     private String roleName;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "department_id", nullable = false)
-    private Department department;
+//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+//    @JoinColumn(name = "department_id", nullable = false)
+    @Column(name = "department_id")
+    private Integer department;
 
     @Column(name = "hourly_rate", precision = 13, scale = 2)
     private BigDecimal hourlyRate;
