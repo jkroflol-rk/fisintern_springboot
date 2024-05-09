@@ -1,13 +1,14 @@
 package com.example.fisintern_spring.entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
-@Getter
-@Setter
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "bills")
 public class Bill {
@@ -25,5 +26,4 @@ public class Bill {
     @Lob
     @Column(name = "status")
     private String status;
-
 }
