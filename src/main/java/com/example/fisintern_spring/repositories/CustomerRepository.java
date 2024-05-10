@@ -1,6 +1,8 @@
 package com.example.fisintern_spring.repositories;
 
 import com.example.fisintern_spring.entities.Customer;
+import com.example.fisintern_spring.entities.Gender;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.*;
 
 import java.math.BigDecimal;
@@ -22,18 +24,20 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     List<Customer> findBirthdayCustomer(LocalDate date1, LocalDate date2);
 
     @Query("SELECT s FROM Customer s WHERE s.sex = ?1")
-    List<Customer> findCustomerBySex(Customer.Gender sex);
+    List<Customer> findCustomerBySex(Gender sex);
 
     @Query("SELECT s.debt FROM Customer s WHERE s.id = ?1")
-    BigDecimal findDebtById(String name);
+    BigDecimal findDebtById(Integer id);
 
     @Query("SELECT s.total FROM Customer s WHERE s.id = ?1")
-    BigDecimal findTotalById(String name);
+    BigDecimal findTotalById(Integer id);
 
+    @Transactional
     @Modifying
     @Query("update Customer s set s.debt = ?1 where s.id = ?2")
     void updateDebt(BigDecimal debt, Integer id);
 
+    @Transactional
     @Modifying
     @Query("update Customer s set s.total = ?1 where s.id = ?2")
     void updateTotal(BigDecimal total, Integer id);

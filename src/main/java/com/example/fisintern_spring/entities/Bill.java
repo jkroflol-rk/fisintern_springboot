@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -26,4 +27,11 @@ public class Bill {
     @Lob
     @Column(name = "status")
     private String status;
+
+    @Column(name = "employee_id")
+    private Integer employee;
+
+    @Builder.Default
+    @Column(name = "time")
+    private LocalDateTime time = LocalDateTime.now();
 }

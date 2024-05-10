@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/bills")
+@RequestMapping("/detailBills")
 public class DetailBillController extends GenericController<DetailBill, Integer>{
     @Autowired
     private DetailBillRepository detailBillRepository;

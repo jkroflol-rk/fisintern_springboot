@@ -37,11 +37,13 @@ public class Customer {
     @Column(name = "email", nullable = false, length = 50)
     private String email;
 
+    @Builder.Default
     @Column(name = "debt", precision = 13, scale = 2)
-    private BigDecimal debt;
+    private BigDecimal debt = BigDecimal.valueOf(0);
 
+    @Builder.Default
     @Column(name = "total", precision = 13, scale = 2)
-    private BigDecimal total;
+    private BigDecimal total = BigDecimal.valueOf(0);
 
 //    @JsonManagedReference
 //    @ManyToOne(fetch = FetchType.LAZY)

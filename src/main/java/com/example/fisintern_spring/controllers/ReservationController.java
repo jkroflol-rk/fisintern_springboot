@@ -30,7 +30,7 @@ public class ReservationController extends GenericController<Reservation, Intege
 
     @PutMapping(path = "/updatestatus/{id}")
     public @ResponseBody String updateReservationStatus(@PathVariable Integer id, @RequestParam Reservation.Status status) {
-        reservationRepository.updateStatus(status, id);
+        reservationService.updateStatus(status, id);
         return "Updated reservation status with id " + id + " to " + status + ".";
     }
 
