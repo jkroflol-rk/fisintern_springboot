@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Controller
@@ -37,6 +38,6 @@ public class ReservationController extends GenericController<Reservation, Intege
     @PutMapping(path = "/updateendtime/{id}")
     public @ResponseBody String updateReservationEndTime(@PathVariable Integer id, @RequestParam String endTime) {
         LocalDateTime endT = LocalDateTime.parse(endTime);
-        return reservationService.updateEndTime(id, endT);
+        return reservationService.updateEndTimeAndCustomerDebt(id, endT);
     }
 }

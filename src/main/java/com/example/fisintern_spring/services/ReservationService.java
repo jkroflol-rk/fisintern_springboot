@@ -5,8 +5,10 @@ import com.example.fisintern_spring.repositories.BilliardTableRepository;
 import com.example.fisintern_spring.repositories.CustomerRepository;
 import com.example.fisintern_spring.repositories.ReservationRepository;
 import com.example.fisintern_spring.repositories.ZoneRepository;
+import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -25,39 +27,40 @@ public class ReservationService extends GenericService<Reservation, Integer>{
     @Autowired
     private CustomerRepository customerRepository;
 
+    @Autowired
+    private EntityManager entityManager;
+
     public ReservationService(ReservationRepository reservationRepository) {
         super(reservationRepository);
     }
 
-    public String updateEndTime(Integer id, LocalDateTime endTime) {
+    @Transactional
+    public String updateEndTimeAndCustomerDebt(Integer id, LocalDateTime endTime) {
         Reservation reservation = reservationRepository.findById(id).get();
         boolean wasNull = reservation.getEndTime() == null;
+        BigDecimal oldPrice = reservation.getTotalPrice();
 
         reservationRepository.updateEndTime(endTime, id);
         reservationRepository.updateTotalTime(id);
 
         Integer zoneId = billiardTableRepository.findZoneIdByTableId(findById(id, "").getBtableId());
         reservationRepository.updateTotalCost(zoneRepository.findHourlyPriceById(zoneId), id);
-
         reservationRepository.flush();
-        return updateCustomerDebt(reservation, id, wasNull);
-    }
+        entityManager.refresh(reservation);
 
-    private String updateCustomerDebt(Reservation reservation, Integer id, boolean wasNull) {
         Reservation newReservation = reservationRepository.findById(id).get();
-        BigDecimal oldPrice = customerRepository.findDebtById(reservation.getCustomerId());
         if (wasNull) {
             customerRepository.updateDebt(
-                customerRepository.findDebtById(reservation.getCustomerId()).add(newReservation.getTotalPrice()),
-                reservation.getCustomerId()
+                customerRepository.findDebtById(newReservation.getCustomerId()).add(newReservation.getTotalPrice()),
+                newReservation.getCustomerId()
             );
-            return newReservation.getTotalPrice() + " added to customer debt for reservation with id " + reservation.getId() + " and updated reservation end time";
+            return newReservation.getTotalPrice() + " added to customer debt for reservation with id " + newReservation.getId() + " and updated reservation end time";
         } else {
             customerRepository.updateDebt(
-                    customerRepository.findDebtById(reservation.getCustomerId())
+                    customerRepository.findDebtById(newReservation.getCustomerId())
                             .add(newReservation.getTotalPrice())
                             .subtract(oldPrice),
-                    reservation.getCustomerId()
+                    newReservation.getCustomerId()
             );
             return "the old price was " + oldPrice + " and the new price is " + newReservation.getTotalPrice();
         }
