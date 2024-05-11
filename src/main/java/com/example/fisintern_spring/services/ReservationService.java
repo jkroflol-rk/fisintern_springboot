@@ -32,26 +32,37 @@ public class ReservationService extends GenericService<Reservation, Integer>{
     public String updateEndTime(Integer id, LocalDateTime endTime) {
         Reservation reservation = reservationRepository.findById(id).get();
         boolean wasNull = reservation.getEndTime() == null;
+
         reservationRepository.updateEndTime(endTime, id);
         reservationRepository.updateTotalTime(id);
+
         Integer zoneId = billiardTableRepository.findZoneIdByTableId(findById(id, "").getBtableId());
         reservationRepository.updateTotalCost(zoneRepository.findHourlyPriceById(zoneId), id);
+
+        reservationRepository.flush();
+        return updateCustomerDebt(reservation, id, wasNull);
+    }
+
+    private String updateCustomerDebt(Reservation reservation, Integer id, boolean wasNull) {
         Reservation newReservation = reservationRepository.findById(id).get();
+        BigDecimal oldPrice = customerRepository.findDebtById(reservation.getCustomerId());
         if (wasNull) {
             customerRepository.updateDebt(
                 customerRepository.findDebtById(reservation.getCustomerId()).add(newReservation.getTotalPrice()),
                 reservation.getCustomerId()
             );
+            return newReservation.getTotalPrice() + " added to customer debt for reservation with id " + reservation.getId() + " and updated reservation end time";
         } else {
             customerRepository.updateDebt(
                     customerRepository.findDebtById(reservation.getCustomerId())
                             .add(newReservation.getTotalPrice())
-                            .subtract(reservation.getTotalPrice()),
+                            .subtract(oldPrice),
                     reservation.getCustomerId()
             );
+            return "the old price was " + oldPrice + " and the new price is " + newReservation.getTotalPrice();
         }
-        return "Updated reservation end time with id " + id + ".";
     }
+
 
     public String updateStatus(Reservation.Status status, Integer id) {
         Reservation reservation = reservationRepository.findById(id).get();
