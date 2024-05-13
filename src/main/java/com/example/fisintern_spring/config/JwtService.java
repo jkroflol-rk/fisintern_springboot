@@ -19,7 +19,7 @@ public class JwtService {
     }
 
     private Claims extractAllClaims(String jwtToken) {
-        return Jwts.parser().verifyWith(getSignInKey()).build().parseClaimsJws(jwtToken).getPayload();
+        return Jwts.parser().verifyWith(getSignInKey()).build().parseSignedClaims(jwtToken).getPayload();
     }
 
     public<T> T extractClaim(String jwtToken, Function<Claims, T> claimsResolver) {
