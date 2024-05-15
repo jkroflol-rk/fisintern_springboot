@@ -2,6 +2,7 @@ package com.example.fisintern_spring.controllers;
 
 import com.example.fisintern_spring.services.GenericService;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,6 +35,7 @@ public abstract class GenericController<T, ID> {
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAuthority('admin')")
     public @ResponseBody String delete(@PathVariable ID id) {
         return service.deleteById(id, entityName);
     }
