@@ -19,7 +19,7 @@ public class ReservationService extends GenericService<Reservation, Integer>{
     private ReservationRepository reservationRepository;
 
     @Autowired
-    private BilliardTableRepository billiardTableRepository;
+    private BilliardTableRepository billiardTableRepository;q
 
     @Autowired
     private ZoneRepository zoneRepository;
